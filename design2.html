@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Movie Advertising</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #000; /* Black background for the body */
+            color: #fff;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column; /* Make the container column layout */
+            background-color: #000; /* Black background for the container */
+        }
+
+        .navbar {
+            width: 100%;
+            background-color: #000; /* Black background for the navbar */
+            color: white;
+            display: flex;
+            justify-content: center; /* Center the buttons */
+            align-items: center;
+            height: 60px; /* Set height for the navbar */
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.7);
+        }
+
+        .navbar button {
+            background-color: transparent;
+            color: #fff;
+            border: 2px solid transparent;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 8px;
+            border-radius: 50px; /* Rounded shape */
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .navbar button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background-color: rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .navbar button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #00c7ff;
+            border-color: #00c7ff; /* Neon blue border on hover */
+        }
+
+        .navbar button:hover::before {
+            width: 0;
+            height: 0;
+        }
+
+        .content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 100vh;
+            background-color: #000; /* Black background for the content */
+            transition: background 0.5s ease;
+        }
+
+        .content h1 {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: #fff;
+            text-shadow: 0px 0px 10px rgba(0, 199, 255, 0.7); /* Glowing text */
+        }
+
+        .content p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #fff; /* White text for better readability */
+        }
+
+        .media-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-width: 100%;
+        }
+
+        .media-container img, .media-container video, .media-container audio {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .logo {
+            background-color: #000; /* Black background for the logo section */
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo img {
+            max-width: 60%;
+            height: auto;
+        }
+
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #222;
+            color: #00c7ff;
+            padding: 12px 24px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0, 199, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: #333;
+            transform: scale(1.1); /* Slight scaling effect */
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                height: auto;
+                box-shadow: none;
+            }
+
+            .navbar button {
+                padding: 10px 20px;
+                font-size: 14px;
+                margin: 5px 0;
+            }
+
+            .content h1 {
+                font-size: 28px;
+            }
+
+            .content p {
+                font-size: 16px;
+            }
+
+            .back-button {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .content h1 {
+                font-size: 24px;
+            }
+
+            .content p {
+                font-size: 14px;
+            }
+        }
+    </style>    
+</head>
+<body>
+    <div class="container">
+        <div class="navbar" id="navbar">
+            <button onclick="navigate('about')">About</button>
+            <button onclick="navigate('poster')">Poster</button>
+            <button onclick="navigate('radio')">Radio</button>
+            <button onclick="navigate('video')">Video</button>
+            <button onclick="navigate('logo')">Logo</button>
+        </div>
+        <div class="content home" id="content">
+            <h1>A PART OF ME</h1>
+            <p>
+                Discover the golden era of cinema! Here, you can explore iconic movies, learn about their history,
+                and find out how they are celebrated even today. Navigate through our sections to dive deeper
+                into the world of classic movies.
+            </p>
+        </div>
+    </div>
+
+    <!-- Back Button -->
+    <button class="back-button" id="backButton" onclick="goBack()">Back</button>
+
+    <script>
+        function navigate(section) {
+            const content = document.getElementById('content');
+            const navbar = document.getElementById('navbar');
+            const backButton = document.getElementById('backButton');
+            
+            // Hide navbar and show back button
+            navbar.style.display = 'none';
+            backButton.style.display = 'block';
+
+            content.className = `content ${section}`;
+
+            if (section === 'about') {
+                content.innerHTML = `<h1>Welcome to Classic Movie Advertising</h1>
+                                     <p>Discover the golden era of cinema! Navigate through our sections to dive deeper into the world of classic movies.</p>`;
+            } else if (section === 'poster') {
+                content.innerHTML = `
+                    <h1>Movie Poster</h1>
+                    <p>Discover iconic movie posters that have captivated audiences for generations.</p>
+                    <div class="media-container">
+                        <img src="image/poster1.jpeg" alt="Classic Movie Poster">
+                    </div>`;
+            } else if (section === 'radio') {
+                content.innerHTML = `
+                    <h1>Listen to Classic Radio</h1>
+                    <p>Enjoy classic movie-themed radio broadcasts from the golden age of cinema.</p>
+                    <div class="media-container">
+                        <audio controls>
+                            <source src="audio/movie_radio.mp3" type="audio/mp3">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>`;
+            } else if (section === 'video') {
+                content.innerHTML = `
+                    <h1>Watch Classic Movie Clips</h1>
+                    <p>Explore iconic scenes from classic movies that continue to inspire filmmakers.</p>
+                    <div class="media-container">
+                        <video controls>
+                            <source src="video/classic_movie_clip.mp4" type="video/mp4">
+                            Your browser does not support the video element.
+                        </video>
+                    </div>`;
+            } else if (section === 'logo') {
+                content.innerHTML = `
+                    <h1>Our Logo</h1>
+                    <p>Here is the logo of our Classic Movie Advertising platform.</p>
+                    <div class="media-container">
+                        <img src="image/logo1.jpeg" alt="Logo">
+                    </div>`;
+            }
+        }
+
+        function goBack() {
+            const content = document.getElementById('content');
+            const navbar = document.getElementById('navbar');
+            const backButton = document.getElementById('backButton');
+            
+            // Show the navbar and hide the back button
+            navbar.style.display = 'flex';
+            backButton.style.display = 'none';
+
+            // Reset content to home page
+            content.innerHTML = `<h1>A PART OF ME</h1>
+                                 <p>Discover the golden era of cinema! Here, you can explore iconic movies, learn about their history,
+                                 and find out how they are celebrated even today. Navigate through our sections to dive deeper into the world of classic movies.</p>`;
+        }
+    </script>
+</body>
+</html>
